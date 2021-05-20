@@ -8,18 +8,26 @@ class Timer {
     this.pauseButton.addEventListener("click", this.pause);
   }
 
-  start() {
-    console.log(this);
-  }
+  start = () => {
+    if (this.intervalId === this.intervalCount) {
+      this.tick();
+      this.intervalId = setInterval(this.tick, 1000);
+    }
+  };
 
-  pause() {
-    console.log("PAUSE");
-  }
+  pause = () => {
+    clearInterval(this.intervalId);
+    this.intervalId = undefined;
+  };
+
+  tick = () => {
+    durationInput.value--;
+  };
 }
 
 const durationInput = document.querySelector("#duration");
 const startButton = document.getElementById("startButton");
 const pauseButton = document.querySelector("#pauseButton");
-
+durationInput.value = 30;
 const timer = new Timer(durationInput, startButton, pauseButton);
-timer.start();
+
